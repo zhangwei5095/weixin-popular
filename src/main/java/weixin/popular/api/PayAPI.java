@@ -10,7 +10,7 @@ import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.StringEntity;
 
 import weixin.popular.bean.BaseResult;
-import weixin.popular.bean.Delivernotify;
+import weixin.popular.bean.pay.Delivernotify;
 import weixin.popular.bean.pay.OrderInfo;
 import weixin.popular.bean.pay.Orderquery;
 import weixin.popular.client.LocalHttpClient;
@@ -18,19 +18,23 @@ import weixin.popular.util.JsonUtil;
 import weixin.popular.util.MapUtil;
 import weixin.popular.util.SignatureUtil;
 
+/**
+ * 老版本支付，新版本使用PayMchAPI。
+ * @author SLYH
+ */
 public class PayAPI extends BaseAPI{
 
 	/**
 	 * 发货通知
-	 * @param access_token
-	 * @param delivernotifyJson
-	 * @return
+	 * @param access_token access_token
+	 * @param delivernotifyJson delivernotifyJson
+	 * @return BaseResult
 	 */
 	private static BaseResult payDelivernotify(String access_token,String delivernotifyJson){
 		HttpUriRequest httpUriRequest = RequestBuilder.post()
 										.setHeader(jsonHeader)
 										.setUri(BASE_URI + "/pay/delivernotify")
-										.addParameter("access_token", access_token)
+										.addParameter(PARAM_ACCESS_TOKEN, access_token)
 										.setEntity(new StringEntity(delivernotifyJson,Charset.forName("utf-8")))
 										.build();
 		return LocalHttpClient.executeJsonResult(httpUriRequest,BaseResult.class);
@@ -40,15 +44,15 @@ public class PayAPI extends BaseAPI{
 
 	/**
 	 * 标记客户的投诉处理状态
-	 * @param access_token
-	 * @param openid
-	 * @param feedbackid
-	 * @return
+	 * @param access_token access_token
+	 * @param openid openid
+	 * @param feedbackid feedbackid
+	 * @return BaseResult
 	 */
 	public static BaseResult payfeedbackUpdate(String access_token,String openid,String feedbackid){
 		HttpUriRequest httpUriRequest = RequestBuilder.post()
 									.setUri(BASE_URI + "/payfeedback/update")
-									.addParameter("access_token", access_token)
+									.addParameter(PARAM_ACCESS_TOKEN, access_token)
 									.addParameter("openid", openid)
 									.addParameter("feedbackid", feedbackid)
 									.build();
@@ -58,15 +62,15 @@ public class PayAPI extends BaseAPI{
 
 	/**
 	 * 订单查询
-	 * @param access_token
-	 * @param orderqueryJson
-	 * @return
+	 * @param access_token access_token
+	 * @param orderqueryJson orderqueryJson
+	 * @return OrderInfo
 	 */
 	private static OrderInfo payOrderquery(String access_token,String orderqueryJson){
 		HttpUriRequest httpUriRequest = RequestBuilder.post()
 										.setHeader(jsonHeader)
 										.setUri(BASE_URI + "/pay/orderquery")
-										.addParameter("access_token", access_token)
+										.addParameter(PARAM_ACCESS_TOKEN, access_token)
 										.setEntity(new StringEntity(orderqueryJson,Charset.forName("utf-8")))
 										.build();
 		return LocalHttpClient.executeJsonResult(httpUriRequest,OrderInfo.class);
@@ -75,10 +79,10 @@ public class PayAPI extends BaseAPI{
 
 	/**
 	 * 发货通知
-	 * @param access_token
-	 * @param delivernotify
-	 * @param paySignKey
-	 * @return
+	 * @param access_token access_token
+	 * @param delivernotify delivernotify
+	 * @param paySignKey paySignKey
+	 * @return BaseResult
 	 */
 	public static BaseResult payDelivernotify(String access_token,Delivernotify delivernotify,String paySignKey){
 		Map<String, String> map = MapUtil.objectToMap(delivernotify);
@@ -91,10 +95,10 @@ public class PayAPI extends BaseAPI{
 
 	/**
 	 * 订单查询
-	 * @param access_token
-	 * @param orderquery
-	 * @param paySignKey
-	 * @return
+	 * @param access_token access_token
+	 * @param orderquery orderquery
+	 * @param paySignKey paySignKey
+	 * @return OrderInfo
 	 */
 	public static OrderInfo payOrderquery(String access_token,Orderquery orderquery,String paySignKey){
 		//builder package  start

@@ -7,7 +7,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="xml")
 @XmlAccessorType(XmlAccessType.FIELD)
-public class MchOrderInfoResult extends MchBaseResult{
+public class MchOrderInfoResult extends MchBase{
 
 	@XmlElement
 	private String trade_state;
@@ -31,10 +31,19 @@ public class MchOrderInfoResult extends MchBaseResult{
 	private Integer total_fee;
 
 	@XmlElement
+	private String fee_type;
+
+	@XmlElement
+	private Integer cash_fee;
+
+	@XmlElement
+	private String cash_fee_type;
+
+	@XmlElement
 	private Integer coupon_fee;
 
 	@XmlElement
-	private String fee_type;
+	private Integer coupon_count;
 
 	@XmlElement
 	private String transaction_id;
@@ -47,6 +56,9 @@ public class MchOrderInfoResult extends MchBaseResult{
 
 	@XmlElement
 	private String time_end;
+
+	@XmlElement
+	private String trade_state_desc;
 
 	public String getTrade_state() {
 		return trade_state;
@@ -151,5 +163,38 @@ public class MchOrderInfoResult extends MchBaseResult{
 	public void setTime_end(String time_end) {
 		this.time_end = time_end;
 	}
+
+	public Integer getCash_fee() {
+		return cash_fee;
+	}
+
+	public void setCash_fee(Integer cash_fee) {
+		this.cash_fee = cash_fee;
+	}
+
+	public String getCash_fee_type() {
+		return cash_fee_type;
+	}
+
+	public void setCash_fee_type(String cash_fee_type) {
+		this.cash_fee_type = cash_fee_type;
+	}
+
+	public Integer getCoupon_count() {
+		return coupon_count;
+	}
+
+	public void setCoupon_count(Integer coupon_count) {
+		this.coupon_count = coupon_count;
+	}
+
+	public String getTrade_state_desc() {
+		return trade_state_desc;
+	}
+
+	public void setTrade_state_desc(String trade_state_desc) {
+		this.trade_state_desc = trade_state_desc;
+	}
+
 
 }

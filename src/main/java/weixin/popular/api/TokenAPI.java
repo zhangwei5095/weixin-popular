@@ -3,16 +3,21 @@ package weixin.popular.api;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 
-import weixin.popular.bean.Token;
+import weixin.popular.bean.token.Token;
 import weixin.popular.client.LocalHttpClient;
 
+/**
+ * ACCESS_TOKEN API
+ * @author LiYi
+ *
+ */
 public class TokenAPI extends BaseAPI{
 
 	/**
 	 * 获取access_token
-	 * @param appid
-	 * @param secret
-	 * @return
+	 * @param appid appid
+	 * @param secret secret
+	 * @return Token
 	 */
 	public static Token token(String appid,String secret){
 		HttpUriRequest httpUriRequest = RequestBuilder.post()
